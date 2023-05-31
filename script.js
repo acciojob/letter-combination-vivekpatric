@@ -1,31 +1,31 @@
-function letterCombinations(digits) {
-  //Complete the function
-	if(digits == ""){
-        return [];
-    }
-   // let table = [ '0','1','abc','def','ghi','jkl','mno','pqrs','tuv','wxyz'];
-     
-    let res =[];
-    let que = [''];
-     
-    while(que.length>0){
-        let str = que[0];
-        que.shift();
-         
-        if(str.length == digits.length){
-            res.push(str); // if all digits are replaced with char push to result
-        } else{
-//             get the current number from the digits i.e if str.length = 2 , digits =123 s= 3
-            let s= Number(digits.charAt(str.length));
-            let val = table[s]; // get char from the table i.e def for s =3
-             
-            for(i=0;i<val.length;i++){
-                que.push(str+val.charAt(i));
-            }
-        }
-    }
-     
-    return res;
+let keyPad = {
+	0: ['0'],
+	1: ['1'],
+	2: ['a', 'b', 'c'],
+	3: ['d', 'e', 'f'],
+	4: ['g', 'h', 'i'],
+	5: ['j', 'k', 'l'],
+	6: ['m', 'n', 'o'],
+	7: ['p', 'q', 'r', 's'],
+	8: ['t', 'u', 'v'],
+	9: ['w', 'x', 'y', 'z']
+}
+function letterCombinations(input_digit) {
+	  let res = [];
+	  findCombinations(input_digit, 0, "", res);
+	  return res;
+}
+
+function findCombinations(num, idx, comb, res) {
+	if(idx == num.length) {
+		res.push(comb);
+		return;
+	}
+
+	let keys = keyPad[num.charAt(idx)];
+	for (let char of keys) {
+		findCombinations(num, idx+1, comb + char, res);
+	}
 }
 
 module.exports = letterCombinations;
